@@ -1,0 +1,2 @@
+Objetivo: Contiene la configuración de ensamblado para empaquetar binarios y artefactos usando el Maven Assembly Plugin.
+Ejemplos: descriptores de ensamblado, recetas para empaquetar dependencias, binarios y scripts de distribución.

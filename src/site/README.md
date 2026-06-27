@@ -1,0 +1,2 @@
+Objetivo: Contiene la documentación del sitio del proyecto que puede ser generada por el Maven Site Plugin.
+Ejemplos: documentación de proyecto, informes de cobertura, javadoc, páginas de uso y despliegue.

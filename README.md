@@ -7,3 +7,26 @@ winget install EclipseAdoptium.Temurin.21.JDK
 ```
 Obteniendo así la versión 21 JDK.
 Luego desde vscode, en el ícono "Testing" que está cerca de las extensiones, presioné la opción "Enable Java Tests" y seleccioné la opción recomendada JUnit Jupiter 6.
+
+# Directorios
+Se sigue la estrucutra `Maven Standard Directory Layout` explicado en [baeldung](https://www.baeldung.com/maven-directory-structure)
+```
+└───maven-project
+    ├───pom.xml
+    ├───README.txt
+    ├───NOTICE.txt
+    ├───LICENSE.txt
+    └───src
+        ├───main
+        │   ├───java
+        │   ├───resources
+        │   ├───filters
+        │   └───webapp
+        ├───test
+        │   ├───java
+        │   ├───resources
+        │   └───filters
+        ├───it
+        ├───site
+        └───assembly
+```
