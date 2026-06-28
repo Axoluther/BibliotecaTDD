@@ -1,6 +1,13 @@
-name: CD - Entrega Continua de la Biblioteca
+name: CD | Empaquetado | Versionamiento
 
-# El flujo de CD solo se despierta cuando el código llega formalmente a 'main'
+# si usamos pull_request se activara
+# cuando este en revision, y la idea
+# es que empaquete una vez que este listo
+# y no en revision, por lo tanto al colocar
+# en 'push' obligamos que sea ya cuando
+# realmente ocurre el push de develop a main
+# ya que primero es pull_request -> se aprueba -> push
+# entonces recien ahi se empaqueta y versiona
 on:
   push:
     branches: [ main ]

@@ -38,10 +38,14 @@ choco install maven
 ```
 Seguido de esto se crea un archivo `pom.xml` en la raíz del proyecto, para configurar maven, el nombre del proyecto y versión, versión de java, y declarar junit para pruebas.
 Para ejecutarse las pruebas se usa el comando
-```
+```shell
 mvn clean test
 ```
-Esto crea una carpeta `target` con binarios, reportes de los test.
+Esto crea una carpeta `target` con binarios, reportes de los test. Usar el parámetro `clean` borra la carpeta `target` en caso de que exista. Si no se incluye `clean` solo cambiará los archivos binarios de las clases modificadas volviendolas a compilar
+```shell
+mvn test
+```
+- TDD: Solo conviene usar `test` sin `clean` o sería muy lento. Solo uasr `clean` si se notan comportamientos extraños
 
 ## Pluggins
 Se usan los pluggins:
@@ -53,14 +57,10 @@ Se usan los pluggins:
 # GitFlow y Maven
 
 ## Flujo
-Este flujo debería indicar cómo funciona la creación de ``features`` y en qué momento llegan a producción
-```
--> New feature/blabla local -> commits -> New branch remote -> Request pull remote to develop -> git pull local
-```
-Cuando se realiza el `Pull Request` en remoto a ``develop``, se ejecuta `Github Actions`. Aunque para efectos prácticos de este proyecto quizás podría pasar directo al ``main`` o producción
+La idea es conectar el versionamiento entre GitFlow y Maven. Para esto se configuran los `CI` y `CD`, en donde en `CI` ejecuta tests y notifica, y la versión va pero no es muy relevante todavía, y `CD` empaqueta y versiona, se asigna una ``versión`` con ``git``, ``Maven`` recibe la version y construye el ``artefacto versionado`` por medio del `pom.xml`, y luego se realiza la ``realise`` con `action-gh-release v2`
 
 ## Versiones
-Con el usao de la extensión `Flatten Maven Plugin`, se crea la variable `${revision}` dentro de `pom.xml`, el cual es un "CI Friendly Versions", para poder cambiar de manera dinámica la versión de la compilación. 
+Con el uso de la extensión `Flatten Maven Plugin`, se crea la variable `${revision}` dentro de `pom.xml`, el cual es un "CI Friendly Versions", para poder cambiar de manera dinámica la versión de la compilación. 
 En propiedades del pom.xml, se define la versión incial en `<revision>`.
 
 Se puede cambiar la variable `${revision}` de manera dinámica usando `-Drevision`:
@@ -109,3 +109,4 @@ git tag -a v1.2.0 -m "Release versión 1.2.0"
 git push origin main --tags
 ```
 El tag creado quedará en la variable o en el ``contexto`` de github `github.ref_name` el cual se usará para versionar el artefacto
+
