@@ -19,5 +19,6 @@ public class BibliotecaTest {
         assertEquals("El Quijote", libro.getTitulo());
         assertEquals("Miguel de Cervantes", libro.getAutor());
         assertEquals(1605, libro.getAnioPublicacion());
+        assertTrue(libro.getDisponible());
     }
 }
