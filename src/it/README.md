@@ -1,0 +1,2 @@
+Objetivo: Contiene pruebas de integración (integration tests) que normalmente son ejecutadas por el Maven Failsafe Plugin.
+Ejemplos: pruebas que requieren despliegue parcial o recursos externos y no se consideran pruebas unitarias.

@@ -1,0 +1,2 @@
+Objetivo: Para aplicaciones web; contiene recursos web estáticos y plantillas que serán desplegadas en la aplicación web.
+Ejemplos: HTML, CSS, JavaScript, imágenes y vistas/plantillas (JSP, Thymeleaf, etc.).

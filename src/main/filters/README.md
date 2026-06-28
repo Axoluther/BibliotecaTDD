@@ -1,0 +1,2 @@
+Objetivo: Contiene archivos de filtros que inyectan valores en archivos de recursos durante la fase de compilación.
+Ejemplos: archivos de propiedades con valores que serán reemplazados en `resources` mediante filtrado de recursos de Maven.

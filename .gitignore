@@ -1,1 +1,6 @@
 .env
+lib/
+*.class
+target
+settings.json
+.flattened-pom.xml
