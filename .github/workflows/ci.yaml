@@ -11,7 +11,7 @@ on:
 # un job tiene varios steps
 # un job por maquina vitual
 jobs:
-    build-and-test:
+    build:
         # servidor que se usara para correr los jobs
         runs-on: ubuntu-latest
 
@@ -27,7 +27,10 @@ jobs:
             java-version: '21'
             distribution: 'temurin'
             cache: 'maven' # guarda caché de dependencias previas para acelerar pipelines
+    test:
+        runs-on: ubuntu-latest
 
+        steps:
         # testeo y sea asigna una version
         - name: Compilar y ejecutar pruebas unitarias con Maven
 
@@ -37,7 +40,7 @@ jobs:
     notify-pull-requests: 
         name: 'Resultado de build y tests a Discord'
         runs-on: ubuntu-latest
-        needs: [build-and-test]
+        needs: [build, test]
         if: always()
         steps:
         - name: "Resultado de Build y Tests"
