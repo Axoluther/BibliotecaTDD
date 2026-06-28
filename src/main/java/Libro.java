@@ -9,6 +9,12 @@ public class Libro {
     private boolean disponible = true;
 
     public Libro(String isbn, String titulo, String autor, int anioPublicacion){
+        if (isbn == null) {
+            throw new IllegalArgumentException("'isbn' argument cannot be null");
+        }
+        if (titulo == null){
+            throw new IllegalArgumentException("'titulo' argument cannot be null");
+        }
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
