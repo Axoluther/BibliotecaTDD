@@ -23,7 +23,7 @@ Se sigue la estrucutra `Maven Standard Directory Layout` explicado en [baeldung]
 
 # Configuración Java y JUnit
 Se está usando VSCode. Se instaló la extensión "Extension Pack for Java", El cual incluye "Test Runner For Java". Luego se Intaló el JDK de java desde powershell (aunque luego me fijé que la misma extensión tenía uns setup)
-```shell
+```powershell
 winget install EclipseAdoptium.Temurin.21.JDK
 ```
 Obteniendo así la versión 21 JDK.
@@ -69,3 +69,15 @@ Se puede cambiar la variable `${revision}` de manera dinámica usando `-Drevisio
 mvn clean test -Drevision=1.0.0-feature-x-SNAPSHOT
 ```
 Esto genera un archivo `.flattened-pom.xml` que reemplaza al `pom.xml`
+
+# Github Actions
+Se configura un solo job `CI` con varios steps. Se encuentra en ``.github\workflows\ci.yaml``.
+
+Los steps constan de :
+- descargar código en máquina virtual, usando `checkout v4` de actions de github
+- Configuración del ``JDK`` 
+- Crear ``artefacto`` usando Maven
+- Ejecución de `Tests` y seteando un número de versión `revision`
+- ``Notificación`` a `Discord` del resultado de los steps anteriores (build y tests)
+
+Esto solo requiere de una sola máquina virtual para ejecutar todos los pasos.
