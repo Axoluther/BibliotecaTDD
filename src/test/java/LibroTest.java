@@ -54,8 +54,4 @@ public class LibroTest {
         assertTrue(libro.getDisponible());
     };
 
-    @Test
-    void testLibrosDuplicadosIsbn(){
-        // TODO: Implementar Biblioteca para manejar los ISBN y duplicados
-    };
 }
