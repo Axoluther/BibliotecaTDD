@@ -1,4 +1,4 @@
-name: Java CI con Maven y GitHub Flow
+name: CI | Maven Tests | GitFlow | Discord Notification
 
 on:
     # local -> remoto
@@ -33,3 +33,28 @@ jobs:
 
         # se puede agregar un | para hace run salto de linea
           run: mvn clean test -Drevision=1.0.0-CI-${{ github.run_number }}-SNAPSHOT
+
+        - name: Notificar Estado de Tests a Discord
+          uses: sarisia/actions-status-discord@v1
+          if: always() && github.event_name == 'push'
+          with:
+            webhook: ${{ secrets.DISCORD_TESTS_WEBHOOK }}
+            status: ${{ job.status }}
+            content: "El ciclo de pruebas automatizadas en la rama **${{ github.ref_name }}** ha finalizado."
+            title: "Reporte de Compilación y Tests - Maven"
+    
+    notify-pull-requests:
+        runs-on: ubuntu-latest
+        if: github.event_name == 'pull_request' 
+        steps:
+        - name: Notificar PR a Discord
+          uses: sarisia/actions-status-discord@v1
+          with:
+            webhook: ${{ secrets.DISCORD_PULL_SCREAM_WEBHOOK }}
+            status: "io"                             # neutral/informativo
+            title: "📢 ¡Nuevo Pull Request Detectado!"
+            content: |
+              **Título:** ${{ github.event.pull_request.title }}
+              **Autor:** ${{ github.actor }}
+              **Origen:** `${{ github.event.pull_request.head.ref }}` ➡️ **Destino:** `${{ github.event.pull_request.base.ref }}`
+              [Ver el Pull Request en GitHub](${{ github.event.pull_request.html_url }})
