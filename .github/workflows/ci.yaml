@@ -42,8 +42,10 @@ jobs:
             # status: ${{ contains(needs.*.result, 'failure') && 'failure' || contains(needs.*.result, 'cancelled') && 'cancelled' || 'success' }}
             status: ${{job.status}}
             title: "Resultado de Build y Tests"
+            username: ${{github.actor}}
+            description: "Rama `${{ github.ref_name }}` · Ejecutado por **${{ github.actor }}**"
             content: |
-              **Título:** ${{ github.event.pull_request.title }}
+              **Título:** ${{ github.event.pull_request.title || github.event_name }}
               **Autor:** ${{ github.actor }}
               **Origen:** `${{ github.event.pull_request.head.ref }}` ➡️ **Destino:** `${{ github.event.pull_request.base.ref }}`
-              [Ver el Pull Request en GitHub](${{ github.event.pull_request.html_url }})
+              [Ver el Pull Request en GitHub](${{ github.event.pull_request.html_url}} || ${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }})
