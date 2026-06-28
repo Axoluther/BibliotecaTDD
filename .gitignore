@@ -4,3 +4,5 @@ lib/
 target
 settings.json
 .flattened-pom.xml
+.vscode
+.vscode2
