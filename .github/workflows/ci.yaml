@@ -33,26 +33,17 @@ jobs:
 
         # se puede agregar un | para hace run salto de linea
           run: mvn clean test -Drevision=1.0.0-CI-${{ github.run_number }}-SNAPSHOT
-
-        - name: Notificar Estado de Tests a Discord
-          uses: sarisia/actions-status-discord@v1
-          if: always() && (github.event_name == 'push' || github.event_name == 'pull_request')
-          with:
-            webhook: ${{ secrets.DISCORD_TESTS_WEBHOOK }}
-            status: ${{ job.status }}
-            content: "El ciclo de pruebas automatizadas en la rama **${{ github.head_ref || github.ref_name }}** ha finalizado."
-            title: "Reporte de Compilación y Tests - Maven"
     
     notify-pull-requests:
         runs-on: ubuntu-latest
-        if: github.event_name == 'pull_request' 
+        if: always()
         steps:
-        - name: Notificar PR a Discord
+        - name: Notificacion resultado pull-push-tests a Discord
           uses: sarisia/actions-status-discord@v1
           with:
-            webhook: ${{ secrets.DISCORD_PULL_SCREAM_WEBHOOK }}
-            status: 'success'
-            title: "📢 ¡Nuevo Pull Request Detectado!"
+            webhook: ${{ secrets.DISCORD_TESTS_WEBHOOK }}
+            status: ${{ contains(needs.*.result, 'failure') && 'failure' || contains(needs.*.result, 'cancelled') && 'cancelled' || 'success' }}
+            title: "Resultado Tests"
             content: |
               **Título:** ${{ github.event.pull_request.title }}
               **Autor:** ${{ github.actor }}
