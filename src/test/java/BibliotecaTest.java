@@ -17,7 +17,6 @@ public class BibliotecaTest {
         assertEquals("El Quijote", libro.getTitulo());
         assertEquals("Miguel de Cervantes", libro.getAutor());
         assertEquals(1605, libro.getAnioPublicacion());
-        assertTrue(libro.getDisponible());
     }
 
     @Test
@@ -43,4 +42,18 @@ public class BibliotecaTest {
         );
         assertEquals("'titulo' argument cannot be null", ex_titulo_null.getMessage());
     };
+
+    @Test
+    void testLibroDisponible(){
+        Libro libro = new Libro(
+            "1231-3123-12-31-23-1",
+            "temeo julieta",
+            "aaron",
+            2030
+        );
+        assertTrue(libro.getDisponible());
+    };
+
+    @Test
+    void testLibrosDuplicadosIsbn(){};
 }
