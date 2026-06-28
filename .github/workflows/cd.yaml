@@ -1,0 +1,50 @@
+name: CD | Empaquetado | Versionamiento
+
+# si usamos pull_request se activara
+# cuando este en revision, y la idea
+# es que empaquete una vez que este listo
+# y no en revision, por lo tanto al colocar
+# en 'push' obligamos que sea ya cuando
+# realmente ocurre el push de develop a main
+# ya que primero es pull_request -> se aprueba -> push
+# entonces recien ahi se empaqueta y versiona
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*.*.*' ]
+
+jobs:
+  deploy-artifact:
+    runs-on: ubuntu-latest
+    
+    # Permisos para meter el artefacto en release del repo
+    permissions:
+      contents: write
+
+    steps:
+    - name: Descargar código fuente
+      uses: actions/checkout@v4
+
+    - name: Configurar JDK 21 (Temurin)
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    # Solo Empaqueta sin tests ya los tests ya corrieron en CI de develop en un PR
+    # Si se sube el tag 'v1.2.0', so github.ref_name sera 'v1.2.0'
+    - name: Empaquetar artefacto ejecutable (.jar)
+      run: |
+        mvn clean package -DskipTests -Drevision=${{ github.ref_name }}-build-${{ github.run_number }}
+
+    # Genera la Release oficial en GitHub y sube el artefacto
+    - name: Crear Release y publicar Artefacto en GitHub
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.ref_name }}-build-${{ github.run_number }}
+        name: Release Oficial ${{ github.ref_name }} (Build #${{ github.run_number }})
+        body: |
+          ### 🎉 ¡Nueva versión estable entregada mediante CD!
+          Este artefacto fue compilado y empaquetado automáticamente tras cerrar el ciclo en la rama principal (`main`) con Git Flow.
+        files: target/*.jar

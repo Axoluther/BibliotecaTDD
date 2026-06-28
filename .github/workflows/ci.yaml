@@ -1,12 +1,23 @@
 name: CI | Maven Tests | GitFlow | Discord Notification
 
 on:
-    # local -> remoto
+    # solo se activa cuando ocurre el push
+    # como cuando subes de local -> remoto
+    # o despues de un PR
+    # Ideal para ejecutar en las ramas features
+    # que no piden PR y pasaron tests en local
+    # No se agrega main y develop para evitar
+    # que se active 2 o mas veces el CI
+    # pues ya corren en PR el CI
     push:
-        branches: [main, develop, conf, feature/**]
-    # rama remota -> main remoto
+        branches: [conf, feature/**]
+    # PR -> pull request
+    # rama remota -> peticion de pull a otra rama
+    # (solo peticion, no se ha aprobado)
+    # se necesita porque los tests son necesarios
+    # para tomar la decision
     pull_request:
-        branches: [ main ]
+        branches: [ main, develop ]
 
 # un job tiene varios steps
 # un job por maquina vitual
@@ -28,11 +39,8 @@ jobs:
             distribution: 'temurin'
             cache: 'maven' # guarda caché de dependencias previas para acelerar pipelines
 
-        - name: Build
-          run: mvn -DskipTests package
-        
-        - name: test
-          run: mvn test -Drevision=1.0.0-CI-${{ github.run_number }}-SNAPSHOT
+        - name: Build and test
+          run: mvn clean test -Drevision=1.0.0-CI-${{ github.run_number }}-SNAPSHOT
 
         - name: "Resultado de Build y Tests"
           if: always()
