@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 public class BibliotecaTest {
 
     @Test
-    void registrarLibro(){
+    void registrarLibroValido(){
 
         Libro libro = new Libro(
             "1234",
