@@ -55,9 +55,9 @@ Se usan los pluggins:
 ## Flujo
 Este flujo debería indicar cómo funciona la creación de ``features`` y en qué momento llegan a producción
 ```
--> New feature/blabla local -> commits -> New branch remote -> Request pull remote to main -> git pull local
+-> New feature/blabla local -> commits -> New branch remote -> Request pull remote to develop -> git pull local
 ```
-Cuando se realiza el `Pull Request` en remoto a main, se ejecuta `Github Actions`
+Cuando se realiza el `Pull Request` en remoto a ``develop``, se ejecuta `Github Actions`. Aunque para efectos prácticos de este proyecto quizás podría pasar directo al ``main`` o producción
 
 ## Versiones
 Con el usao de la extensión `Flatten Maven Plugin`, se crea la variable `${revision}` dentro de `pom.xml`, el cual es un "CI Friendly Versions", para poder cambiar de manera dinámica la versión de la compilación. 

@@ -1,9 +1,9 @@
-name: Java CI con Maven y GitHub Flow
+name: CI | Maven Tests | GitFlow | Discord Notification
 
 on:
     # local -> remoto
     push:
-        branches: [ main ]
+        branches: [main, develop, conf, feature/**]
     # rama remota -> main remoto
     pull_request:
         branches: [ main ]
@@ -11,7 +11,7 @@ on:
 # un job tiene varios steps
 # un job por maquina vitual
 jobs:
-    build-and-test:
+    CI:
         # servidor que se usara para correr los jobs
         runs-on: ubuntu-latest
 
@@ -28,8 +28,20 @@ jobs:
             distribution: 'temurin'
             cache: 'maven' # guarda caché de dependencias previas para acelerar pipelines
 
-        # testeo y sea asigna una version
-        - name: Compilar y ejecutar pruebas unitarias con Maven
+        - name: Build
+          run: mvn -DskipTests package
+        
+        - name: test
+          run: mvn test -Drevision=1.0.0-CI-${{ github.run_number }}-SNAPSHOT
 
-        # se puede agregar un | para hace run salto de linea
-          run: mvn clean test -Drevision=1.0.0-CI-${{ github.run_number }}-SNAPSHOT
+        - name: "Resultado de Build y Tests"
+          if: always()
+          uses: sarisia/actions-status-discord@v1
+          with:
+            webhook: ${{ secrets.DISCORD_TESTS_WEBHOOK }}
+            # status: ${{ contains(needs.*.result, 'failure') && 'failure' || contains(needs.*.result, 'cancelled') && 'cancelled' || 'success' }}
+            status: ${{job.status}}
+            title: "Resultado de Build y Tests"
+            username: ${{github.actor}} Scream :D
+            description: "Rama `${{ github.ref_name }}` · Ejecutado por **${{ github.actor }}**"
+
