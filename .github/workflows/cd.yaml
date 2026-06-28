@@ -1,0 +1,43 @@
+name: CD - Entrega Continua de la Biblioteca
+
+# El flujo de CD solo se despierta cuando el código llega formalmente a 'main'
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*.*.*' ]
+
+jobs:
+  deploy-artifact:
+    runs-on: ubuntu-latest
+    
+    # Otorgamos permisos de escritura para que el workflow pueda adjuntar el archivo a la Release
+    permissions:
+      contents: write
+
+    steps:
+    - name: Descargar código fuente
+      uses: actions/checkout@v4
+
+    - name: Configurar JDK 21 (Temurin)
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    # Empaqueta la biblioteca saltándose los tests (asumiendo que ya pasaron en la CI de develop/PR)
+    # Si se sube el tag 'v1.2.0', so github.ref_name sera 'v1.2.0'
+    - name: Empaquetar artefacto ejecutable (.jar)
+      run: |
+        mvn clean package -DskipTests -Drevision=${{ github.ref_name }}-build-${{ github.run_number }}
+
+    # Genera la Release oficial en GitHub y sube el archivo .jar
+    - name: Crear Release y publicar Artefacto en GitHub
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.ref_name }}-build-${{ github.run_number }}
+        name: Release Oficial ${{ github.ref_name }} (Build #${{ github.run_number }})
+        body: |
+          ### 🎉 ¡Nueva versión estable entregada mediante CD!
+          Este artefacto fue compilado y empaquetado automáticamente tras cerrar el ciclo en la rama principal (`main`) con Git Flow.
+        files: target/*.jar

@@ -6,7 +6,7 @@ on:
         branches: [main, develop, conf, feature/**]
     # rama remota -> main remoto
     pull_request:
-        branches: [ main ]
+        branches: [ main, develop ]
 
 # un job tiene varios steps
 # un job por maquina vitual
