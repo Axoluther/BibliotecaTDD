@@ -22,7 +22,7 @@ Se sigue la estrucutra `Maven Standard Directory Layout` explicado en [baeldung]
 ```
 
 # Configuración Java y JUnit
-Se está usando VSCode. Se instaló la extensión "Extension Pack for Java", El cual incluye "Test Runner For Java". Luego se Intaló el JDK de java desde powershell (aunque luego me fijé que la misma extensión tenía uns setup)
+Se está usando VSCode. Se instaló la extensión "Extension Pack for Java", El cual incluye "Test Runner For Java". Luego se Intaló el JDK de java desde powershell (aunque luego me fijé que la misma extensión tenía un setup)
 ```powershell
 winget install EclipseAdoptium.Temurin.21.JDK
 ```
@@ -55,11 +55,15 @@ Se usan los pluggins:
 
 - [Maven Compiler Pluging](https://maven.apache.org/plugins/maven-compiler-plugin/usage.html): Sirve para que se pueda compilar el proyecto, y fijar la versión de java
 
+- [Maven JavaDoc Plugin](https://maven.apache.org/plugins/maven-javadoc-plugin/): Sirve para generar documentación 
+
 
 # GitFlow y Maven
 
 ## Flujo
 La idea es conectar el versionamiento entre GitFlow y Maven. Para esto se configuran los `CI` y `CD`, en donde en `CI` ejecuta tests y notifica, y la versión va pero no es muy relevante todavía, y `CD` empaqueta y versiona, se asigna una ``versión`` con ``git``, ``Maven`` recibe la version y construye el ``artefacto versionado`` por medio del `pom.xml`, y luego se realiza la ``realise`` con `action-gh-release v2`
+
+Luego de que se termien las etapas de CI|CD se pasa a la etapa de documentación continua. Se crea documentación del código usando `Maven JavaDoc Plugin`, el cual se añade a la pipeline `docs.yaml`. Solo realiza documentación en producción y usa github pages para mostrarla.
 
 ## Versiones
 Con el uso de la extensión `Flatten Maven Plugin`, se crea la variable `${revision}` dentro de `pom.xml`, el cual es un "CI Friendly Versions", para poder cambiar de manera dinámica la versión de la compilación. 
@@ -73,9 +77,10 @@ mvn clean test -Drevision=1.0.0-feature-x-SNAPSHOT
 Esto genera un archivo `.flattened-pom.xml` que reemplaza al `pom.xml`
 
 # Github Actions workflows
-Se configura los jobs `CI` y `CD`. Estos se encuentran en:
+Se configura los jobs `CI`, `CD` y `docs`. Estos se encuentran en:
 - ``.github\workflows\ci.yaml``
 - ``.github\workflows\cd.yaml``
+- ``.github\workflows\docs.yaml``
 
 ## CI
 Los steps constan de :
@@ -112,3 +117,17 @@ git push origin main --tags
 ```
 El tag creado quedará en la variable o en el ``contexto`` de github `github.ref_name` el cual se usará para versionar el artefacto
 
+# Docs
+Esta etapa corresponde a la documentación continua.
+
+Solo se ejecuta cuando:
+- Se pasan cambios a código en producción
+- Cuando la etapa CD ha sido completada
+
+Los pasos que sigue son:
+- Se clona repo en MV con `checkout v4`
+- Se configura java con `setup-java v4`
+- Se genera documentación con `JavaDoc`
+- Se configura Github Pages con `configure-pages v4`
+- Se sube el artefacto a la documentación con `upload-pages-artifact@v3`. Notar que este artefacto no es el .jar, si no el ``reporte HTML``
+- Se despliega la págjna con `deploy-pages@v4`

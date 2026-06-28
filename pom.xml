@@ -72,6 +72,20 @@
                     <target>21</target>
                 </configuration>
             </plugin>
+
+            <!-- Maven JavaDoc Plugin -->
+            <!-- Es para realizar documentacion con JavaDoc y poder automatizarlo -->
+            <!-- como una documentacion continua -->
+            <!-- https://maven.apache.org/plugins/maven-javadoc-plugin/ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <reportOutputDirectory>${project.reporting.outputDirectory}/apidocs</reportOutputDirectory>
+                    <doclint>none</doclint> 
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

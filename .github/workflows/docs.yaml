@@ -1,0 +1,52 @@
+name: Documentación Continua (JavaDoc)
+
+# Solo se genera documentacion 
+# cuando se sube a producción
+on:
+    workflow_run:
+        workflows: ["CD | Empaquetado | Versionamiento"]
+        types:
+            - completed
+
+# Permisos necesarios para que el pipeline pueda publicar en GitHub Pages
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+concurrency:
+    group: "pages"
+    cancel-in-progress: false
+
+jobs:
+  deploy-docs:
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Clonar el repositorio
+            uses: actions/checkout@v4
+
+          - name: Configurar JDK
+            uses: actions/setup-java@v4
+            with:
+                java-version: '21'
+                distribution: 'temurin'
+                cache: 'maven'
+
+          - name: Generar JavaDoc con Maven
+            run: mvn clean javadoc:javadoc
+
+          - name: Configurar Páginas de GitHub
+            uses: actions/configure-pages@v4
+
+          - name: Subir artefacto de la documentación
+            uses: actions/upload-pages-artifact@v3
+            with:
+                path: 'target/site/apidocs'
+
+          - name: Desplegar en GitHub Pages
+            id: deployment
+            uses: actions/deploy-pages@v4
