@@ -61,7 +61,7 @@
             </plugin>
 
             <!-- Maven Compiler PlUGING -->
-            <!-- Sirve para compilar con javac -->
+            <!-- Sirve para compilar con javac y la version que le corresponde -->
             <!-- https://maven.apache.org/plugins/maven-compiler-plugin/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

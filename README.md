@@ -53,6 +53,8 @@ Se usan los pluggins:
 
 - [Flatten Maven Plugin](https://www.mojohaus.org/flatten-maven-plugin/): Permite usar las variables en el `pom.xml` y reemplazarlas
 
+- [Maven Compiler Pluging](https://maven.apache.org/plugins/maven-compiler-plugin/usage.html): Sirve para que se pueda compilar el proyecto, y fijar la versión de java
+
 
 # GitFlow y Maven
 
