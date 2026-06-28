@@ -34,16 +34,18 @@ jobs:
         # se puede agregar un | para hace run salto de linea
           run: mvn clean test -Drevision=1.0.0-CI-${{ github.run_number }}-SNAPSHOT
     
-    notify-pull-requests:
+    notify-pull-requests: 
+        name: 'Resultado de build y tests a Discord'
         runs-on: ubuntu-latest
+        needs: [build-and-test]
         if: always()
         steps:
-        - name: Notificacion resultado pull-push-tests a Discord
+        - name: "Resultado de Build y Tests"
           uses: sarisia/actions-status-discord@v1
           with:
             webhook: ${{ secrets.DISCORD_TESTS_WEBHOOK }}
             status: ${{ contains(needs.*.result, 'failure') && 'failure' || contains(needs.*.result, 'cancelled') && 'cancelled' || 'success' }}
-            title: "Resultado Tests"
+            title: "Resultado de Build y Tests"
             content: |
               **Título:** ${{ github.event.pull_request.title }}
               **Autor:** ${{ github.actor }}
