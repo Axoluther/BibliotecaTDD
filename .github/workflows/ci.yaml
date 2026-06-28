@@ -51,7 +51,7 @@ jobs:
           uses: sarisia/actions-status-discord@v1
           with:
             webhook: ${{ secrets.DISCORD_PULL_SCREAM_WEBHOOK }}
-            status: ${{github.action_status}}
+            status: 'success'
             title: "📢 ¡Nuevo Pull Request Detectado!"
             content: |
               **Título:** ${{ github.event.pull_request.title }}
