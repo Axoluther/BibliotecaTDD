@@ -3,7 +3,7 @@ name: CI | Maven Tests | GitFlow | Discord Notification
 on:
     # local -> remoto
     push:
-        branches: [ main ]
+        branches: [main, develop, conf, feature/**]
     # rama remota -> main remoto
     pull_request:
         branches: [ main ]
