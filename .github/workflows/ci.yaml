@@ -36,11 +36,11 @@ jobs:
 
         - name: Notificar Estado de Tests a Discord
           uses: sarisia/actions-status-discord@v1
-          if: always() && github.event_name == 'push'
+          if: always() && (github.event_name == 'push' || github.event_name == 'pull_request')
           with:
             webhook: ${{ secrets.DISCORD_TESTS_WEBHOOK }}
             status: ${{ job.status }}
-            content: "El ciclo de pruebas automatizadas en la rama **${{ github.ref_name }}** ha finalizado."
+            content: "El ciclo de pruebas automatizadas en la rama **${{ github.head_ref || github.ref_name }}** ha finalizado."
             title: "Reporte de Compilación y Tests - Maven"
     
     notify-pull-requests:
