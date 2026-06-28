@@ -17,7 +17,7 @@ jobs:
   deploy-artifact:
     runs-on: ubuntu-latest
     
-    # Otorgamos permisos de escritura para que el workflow pueda adjuntar el archivo a la Release
+    # Permisos para meter el artefacto en release del repo
     permissions:
       contents: write
 
@@ -32,13 +32,13 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
 
-    # Empaqueta la biblioteca saltándose los tests (asumiendo que ya pasaron en la CI de develop/PR)
+    # Solo Empaqueta sin tests ya los tests ya corrieron en CI de develop en un PR
     # Si se sube el tag 'v1.2.0', so github.ref_name sera 'v1.2.0'
     - name: Empaquetar artefacto ejecutable (.jar)
       run: |
         mvn clean package -DskipTests -Drevision=${{ github.ref_name }}-build-${{ github.run_number }}
 
-    # Genera la Release oficial en GitHub y sube el archivo .jar
+    # Genera la Release oficial en GitHub y sube el artefacto
     - name: Crear Release y publicar Artefacto en GitHub
       uses: softprops/action-gh-release@v2
       with:
