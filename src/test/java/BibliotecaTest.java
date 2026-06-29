@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +25,9 @@ public class BibliotecaTest {
 
     @Test
     void registrarLibroInvalido(){
-        // Libro libro_null = null;
+        Libro libro_null = null;
+        Biblioteca biblio = new Biblioteca();
+        assertThrows(NullPointerException.class, () -> biblio.registrarLibro(libro_null));
     }
 
     @Test

@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Libro {
     // req minimos
     private String isbn;
@@ -9,14 +11,8 @@ public class Libro {
     private boolean disponible = true;
 
     public Libro(String isbn, String titulo, String autor, int anioPublicacion){
-        if (isbn == null) {
-            throw new IllegalArgumentException("'isbn' argument cannot be null");
-        }
-        if (titulo == null){
-            throw new IllegalArgumentException("'titulo' argument cannot be null");
-        }
-        this.isbn = isbn;
-        this.titulo = titulo;
+        this.isbn = Objects.requireNonNull(isbn,"'isbn' argument cannot be null");
+        this.titulo = Objects.requireNonNull(titulo, "'titulo' argument cannot be null");
         this.autor = autor;
         this.anioPublicacion = anioPublicacion;
     };
