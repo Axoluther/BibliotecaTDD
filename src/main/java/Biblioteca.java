@@ -52,7 +52,15 @@ public class Biblioteca {
     }
 
     public void devolverLibro(String isbn) {
+        Objects.requireNonNull(isbn);
+
+        Libro libro = buscarPorIsbn(isbn).orElseThrow(() -> new LibroNoEncontradoException(isbn));
         
+        if ( libro.getDisponible() ){
+            throw new LibroYaDisponible(isbn);
+        }
+        libro.setDisponible();
+        libros.put(isbn,libro);
     }
 
 }
