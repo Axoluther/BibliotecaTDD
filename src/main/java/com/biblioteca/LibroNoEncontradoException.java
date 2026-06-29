@@ -1,4 +1,4 @@
-
+package com.biblioteca;
 
 /**
  * Excepción lanzada cuando no se encuentra un libro por ISBN o título.

@@ -1,4 +1,4 @@
-
+package com.biblioteca;
 
 /**
  * Excepción que indica que se intentó registrar un libro cuyo ISBN ya

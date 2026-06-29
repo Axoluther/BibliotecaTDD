@@ -1,3 +1,5 @@
+package com.biblioteca;
+
 /**
  * Excepción lanzada cuando se intenta devolver un libro que ya estaba marcado
  * como disponible (no fue prestado previamente).
