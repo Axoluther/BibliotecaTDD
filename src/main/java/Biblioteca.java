@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -18,10 +19,21 @@ public class Biblioteca {
     }
 
     public Optional<Libro> buscarPorIsbn(String isbn) {
-        return Optional.ofNullable(libros.get(Objects.requireNonNull(isbn, "'isbn' cannot be null")));
+        Objects.requireNonNull(isbn, "'isbn' cannot be null");
+        
+        return Optional.ofNullable(libros.get(isbn));
     }
 
-    public List<Libro> buscarPorTitulo(String titulo) { return null; }
+    public List<Libro> buscarPorTitulo(String titulo) { 
+        List<Libro> lista_libros = new ArrayList<>() ;
+
+        for ( Libro libro : libros.values() ){
+            if (titulo == libro.getTitulo()){
+                lista_libros.add(libro);
+            } ;
+        }
+        return lista_libros ; 
+    }
 
     public List<Libro> listarDisponibles() { return null; }
 
