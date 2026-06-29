@@ -28,7 +28,7 @@ public class Biblioteca {
         List<Libro> lista_libros = new ArrayList<>() ;
 
         for ( Libro libro : libros.values() ){
-            if (titulo == libro.getTitulo()){
+            if ( titulo.equals(libro.getTitulo()) ){
                 lista_libros.add(libro);
             } ;
         }

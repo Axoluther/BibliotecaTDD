@@ -22,7 +22,7 @@ public class BibliotecaTest {
         biblio = new Biblioteca();
         libro1 = new Libro(
             "1234",
-            "el mito de la caberna ex umbra in solem",
+            "el mito de la caverna ex umbra in solem",
             "platon",
             230
         );
@@ -85,12 +85,14 @@ public class BibliotecaTest {
         // ya prestado
         assertThrows(LibroNoDisponibleException.class, () -> biblio.prestarLibro(libro3.getIsbn()) );
 
+
         // devolverlo
         assertDoesNotThrow(() -> biblio.devolverLibro(libro3.getIsbn()));
         assertTrue( biblio.buscarPorIsbn( libro3.getIsbn()).orElseThrow(() -> new LibroNoEncontradoException(libro3.getIsbn())).getDisponible() );
 
         // inexistente
         assertThrows(LibroNoEncontradoException.class, ()-> biblio.prestarLibro("kkkasda") );
+        assertThrows(LibroNoEncontradoException.class, ()-> biblio.devolverLibro("kkkasda") );
 
     };
 
@@ -108,6 +110,27 @@ public class BibliotecaTest {
 
         List<Libro> libros_disp = biblio.listarDisponibles();
         assertEquals(libros_a_listar, libros_disp);
+
+    }
+
+    @Test
+    void buscarPorTitulo(){
+        biblio.registrarLibro(libro1);
+        biblio.registrarLibro(libro3);
+        biblio.registrarLibro(libro4);
+
+        // Buscar de manera parcial
+        // y sin diferenciar por mayusculas o minusculas
+        String word1 = "CompUTacIoN ";
+        String word2 = "NoMeENcontr an";
+        List<Libro> result_expected = new ArrayList<>();
+        result_expected.add(libro3);
+
+        List<Libro> libros = biblio.buscarPorTitulo(word1);
+        List<Libro> libros_empty = biblio.buscarPorTitulo(word2);
+
+        assertEquals(result_expected, libros);
+        assertTrue(libros_empty.isEmpty());
 
     }
 }
