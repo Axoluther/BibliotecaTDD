@@ -76,6 +76,10 @@ public class BibliotecaTest {
         // ya prestado
         assertThrows(LibroNoDisponibleException.class, () -> biblio.prestarLibro(libro3.getIsbn()) );
 
+        // devolverlo
+        assertDoesNotThrow(() -> biblio.devolverLibro(libro3.getIsbn()));
+        assertTrue( biblio.buscarPorIsbn( libro3.getIsbn()).orElseThrow(() -> new LibroNoEncontradoException(libro3.getIsbn())).getDisponible() );
+
         // inexistente
         assertThrows(LibroNoEncontradoException.class, ()-> biblio.prestarLibro("kkkasda") );
 
