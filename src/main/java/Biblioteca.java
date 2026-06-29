@@ -35,7 +35,15 @@ public class Biblioteca {
         return lista_libros ; 
     }
 
-    public List<Libro> listarDisponibles() { return null; }
+    public List<Libro> listarDisponibles() { 
+        List<Libro> disponibles = new ArrayList<>();
+        for ( Libro libro : libros.values() ){
+            if (libro.getDisponible()){
+                disponibles.add(libro);
+            };
+        }
+        return disponibles;
+    }
 
     public void prestarLibro(String isbn) {
         Objects.requireNonNull(isbn);
