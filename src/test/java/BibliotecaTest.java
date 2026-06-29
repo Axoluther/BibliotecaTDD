@@ -9,6 +9,13 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Pruebas unitarias para la clase {@link Biblioteca}.
+ * <p>
+ * Cubre registro, búsqueda, préstamo y devolución de libros, así como los
+ * escenarios de error relacionados (duplicados, no encontrado, no disponible).
+ * </p>
+ */
 public class BibliotecaTest {
 
     private Biblioteca biblio;
