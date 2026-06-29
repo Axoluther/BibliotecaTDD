@@ -20,7 +20,7 @@ public class Biblioteca {
 
     public Optional<Libro> buscarPorIsbn(String isbn) {
         Objects.requireNonNull(isbn, "'isbn' cannot be null");
-        
+
         return Optional.ofNullable(libros.get(isbn));
     }
 
@@ -37,7 +37,19 @@ public class Biblioteca {
 
     public List<Libro> listarDisponibles() { return null; }
 
-    public void prestarLibro(String isbn) { }
+    public void prestarLibro(String isbn) {
+        Objects.requireNonNull(isbn);
+        
+        Libro libro = buscarPorIsbn(isbn).orElseThrow(() -> new LibroNoEncontradoException(isbn)) ;
+
+        if (!libro.getDisponible()){
+            throw new LibroNoDisponibleException(isbn);
+        };
+
+        libro.setPedido();
+        // override
+        libros.put(isbn, libro);
+    }
 
     public void devolverLibro(String isbn) { }
 

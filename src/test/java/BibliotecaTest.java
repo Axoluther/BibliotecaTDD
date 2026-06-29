@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -65,5 +66,21 @@ public class BibliotecaTest {
     }
 
     @Test
-    void
+    void prestarLibros(){
+        biblio.registrarLibro(libro1);
+        biblio.registrarLibro(libro3);
+
+        // existente
+        assertDoesNotThrow(() -> biblio.prestarLibro(libro3.getIsbn()) );
+
+        // ya prestado
+        assertThrows(LibroNoDisponibleException.class, () -> biblio.prestarLibro(libro3.getIsbn()) );
+
+        // inexistente
+        assertThrows(LibroNoEncontradoException.class, ()-> biblio.prestarLibro("kkkasda") );
+
+    };
+
+    @Test
+    void listarLibros(){}
 }

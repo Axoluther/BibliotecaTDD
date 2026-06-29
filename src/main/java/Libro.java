@@ -36,4 +36,11 @@ public class Libro {
     public boolean getDisponible(){
         return this.disponible;
     };
+
+    public void setPedido(){
+        this.disponible = false;
+    }
+    public void setDisponible(){
+        this.disponible = true;
+    }
 }
