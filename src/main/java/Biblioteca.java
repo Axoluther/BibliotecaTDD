@@ -8,7 +8,13 @@ public class Biblioteca {
     private final Map<String, Libro> libros = new HashMap<>();
 
     public void registrarLibro(Libro libro) {
-        libros.put(libro.getIsbn(), Objects.requireNonNull(libro)) ;
+        Libro libro_nn = Objects.requireNonNull(libro) ;
+        String isbn = libro_nn.getIsbn();
+        Optional<Libro> res = Optional.ofNullable(libros.get(isbn));
+        if ( res.isPresent() ){
+            throw new LibroDuplicadoException(isbn);
+        };
+        libros.put(libro.getIsbn(), libro_nn) ;
     }
 
     public Optional<Libro> buscarPorIsbn(String isbn) {
