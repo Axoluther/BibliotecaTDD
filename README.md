@@ -43,8 +43,9 @@ mvn clean test
 ```
 Esto crea una carpeta `target` con binarios, reportes de los test. Usar el parámetro `clean` borra la carpeta `target` en caso de que exista. Si no se incluye `clean` solo cambiará los archivos binarios de las clases modificadas volviendolas a compilar
 ```shell
-mvn test
+mvn -q test
 ```
+(`-q` para que no imprima tanto output)
 - TDD: Solo conviene usar `test` sin `clean` o sería muy lento. Solo uasr `clean` si se notan comportamientos extraños
 
 ## Pluggins
