@@ -37,7 +37,7 @@ jobs:
                 cache: 'maven'
 
           - name: Generar JavaDoc con Maven
-            run: mvn clean javadoc:javadoc
+            run: mvn clean javadoc:javadoc -Drevision=${{ github.ref_name }}-build-${{ github.run_number }}
 
           - name: Configurar Páginas de GitHub
             uses: actions/configure-pages@v4

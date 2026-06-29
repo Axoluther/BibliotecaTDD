@@ -1,3 +1,5 @@
+package com.biblioteca;
+
 /**
  * Excepción lanzada cuando se intenta prestar un libro que ya está
  * prestado (no disponible).
