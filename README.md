@@ -98,7 +98,7 @@ Se iban agregando las funciones on las pruebas unitarias:
 - Luego de programar se documentaba el código co javadoc
 
 ## Documentación
-La documentación del código se puede encontrar en este [enlace](axoluther.github.io/BibliotecaTDD/) generado con una pipeline para esto luego del CD
+La documentación del código se puede encontrar en este [enlace]([axoluther.github.io/BibliotecaTDD/](https://axoluther.github.io/BibliotecaTDD/com/biblioteca/package-summary.html)) generado con una pipeline para esto luego del CD
 
 ## Repsuestas a preguntas
 ### Pregunta 1
