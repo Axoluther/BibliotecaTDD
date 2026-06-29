@@ -11,7 +11,11 @@ public class Biblioteca {
     }
 
     public Optional<Libro> buscarPorIsbn(String isbn) {
-        // trucaso xd
+
+        if (isbn ==null){
+            throw new LibroNoEncontradoException("Isbn Nulo")
+        };
+        
         return Optional.ofNullable(libros.get(isbn));
     }
 

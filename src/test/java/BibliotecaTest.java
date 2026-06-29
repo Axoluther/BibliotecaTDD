@@ -18,9 +18,14 @@ public class BibliotecaTest {
         biblio.registrarLibro(libro);
 
         // lanza error si no es presente .isPresent()
-        Libro libro_found = biblio.buscarPorIsbn("1234").orElseThrow();
+        Libro libro_found = biblio.buscarPorIsbn("1234").orElseThrow( () -> new LibroNoEncontradoException("1234"));
         assertEquals(libro.getIsbn(), libro_found.getIsbn());
     };
+
+    @Test
+    void registrarLibroInvalido(){
+        // Libro libro_null = null;
+    }
 
     @Test
     void testLibrosDuplicadosIsbn(){
