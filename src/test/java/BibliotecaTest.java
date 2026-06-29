@@ -1,8 +1,10 @@
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,25 +15,32 @@ public class BibliotecaTest {
     private Libro libro1;
     private Libro libro2;
     private Libro libro3;
+    private Libro libro4;
 
     @BeforeEach
     void setUp() {
         biblio = new Biblioteca();
         libro1 = new Libro(
             "1234",
-            "fantasias de don Fede",
-            "Conocido de apellido Carrera",
-            1930
+            "el mito de la caberna ex umbra in solem",
+            "platon",
+            230
         );
         libro2 = new Libro(
             "1234",
-            "aventuras traviesas en el el jardin escondido en la chancha de la usm",
+            "las mil y unas punto y coma s ",
             "aaron",
             2026
         );
         libro3 = new Libro(
-            "asdasd-asd-aas-da-s",
-            "fin de la usm",
+            "asdasd",
+            "100 años de computacion cientifica",
+            "clavos de garcia",
+            2040
+        );
+        libro4 = new Libro(
+            "123rtrtr",
+            "alicia en el pais del prestigio",
             "aaron",
             2040
         );
@@ -86,5 +95,19 @@ public class BibliotecaTest {
     };
 
     @Test
-    void listarLibros(){}
+    void listarLibros(){
+        List<Libro> libros_a_listar = new ArrayList<>();
+        libros_a_listar.add(libro1);
+        libros_a_listar.add(libro4);
+
+        biblio.registrarLibro(libro1);
+        biblio.registrarLibro(libro3);
+        biblio.registrarLibro(libro4);
+
+        biblio.prestarLibro(libro3.getIsbn());
+
+        List<Libro> libros_disp = biblio.listarDisponibles();
+        assertEquals(libros_a_listar, libros_disp);
+
+    }
 }
