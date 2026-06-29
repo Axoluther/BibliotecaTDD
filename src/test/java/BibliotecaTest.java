@@ -1,3 +1,4 @@
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -32,7 +33,12 @@ public class BibliotecaTest {
 
     @Test
     void testLibrosDuplicadosIsbn(){
-        // TODO: Implementar Biblioteca para manejar los ISBN y duplicados
+        Libro d1 = new Libro("1234", "aventuras traviesas en el el jardin escondido en la chancha de la usm", "aaron", 2026);
+        Libro d2 = new Libro("1234", "aventuras traviesas en el el jardin escondido en la chancha de la usm", "aaron", 2026);
+        Biblioteca biblio = new Biblioteca();
+
+        assertDoesNotThrow(()->biblio.registrarLibro(d1));
+        assertThrows(LibroDuplicadoException.class,()->biblio.registrarLibro(d2));
     };
     
     @Test
