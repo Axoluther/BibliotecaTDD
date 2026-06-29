@@ -27,8 +27,11 @@ public class Biblioteca {
     public List<Libro> buscarPorTitulo(String titulo) { 
         List<Libro> lista_libros = new ArrayList<>() ;
 
+        titulo = titulo.toLowerCase();
+        
         for ( Libro libro : libros.values() ){
-            if ( titulo.equals(libro.getTitulo()) ){
+            String titulo_libro_i = libro.getTitulo().toLowerCase();
+            if ( titulo_libro_i.contains(titulo) ){
                 lista_libros.add(libro);
             } ;
         }
