@@ -28,10 +28,9 @@ public class Biblioteca {
         List<Libro> lista_libros = new ArrayList<>() ;
 
         titulo = titulo.toLowerCase();
-        
+
         for ( Libro libro : libros.values() ){
-            String titulo_libro_i = libro.getTitulo().toLowerCase();
-            if ( titulo_libro_i.contains(titulo) ){
+            if ( libro.getTitulo().toLowerCase().contains(titulo) ){
                 lista_libros.add(libro);
             } ;
         }
