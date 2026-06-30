@@ -37,6 +37,7 @@ jobs:
     - name: Empaquetar artefacto ejecutable (.jar)
       run: |
         mvn clean package -DskipTests -Drevision=${{ github.ref_name }}-build-${{ github.run_number }}
+        cp target/sistema-biblioteca.jar ./sistema-biblioteca.jar
 
     # Genera la Release oficial en GitHub y sube el artefacto
     - name: Crear Release y publicar Artefacto en GitHub
@@ -49,5 +50,6 @@ jobs:
           Este artefacto fue compilado y empaquetado automáticamente tras cerrar el ciclo en la rama principal (`main`) con Git Flow.
         files: |
           target/*.jar 
+          sistema-biblioteca.jar
           iniciarWeb.bat 
           iniciarWeb.sh
