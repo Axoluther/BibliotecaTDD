@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Biblioteca</title>
+</head>
+<body>
+    <h1>Biblioteca</h1>
+
+    <section>
+        <h2>Registrar libro</h2>
+        <form action="/registrar" method="post">
+            <label>
+                ISBN
+                <input type="text" name="isbn">
+            </label>
+            <br>
+            <label>
+                Titulo
+                <input type="text" name="titulo">
+            </label>
+            <br>
+            <label>
+                Autor
+                <input type="text" name="autor">
+            </label>
+            <br>
+            <label>
+                Anio de publicacion
+                <input type="number" name="anioPublicacion">
+            </label>
+            <br>
+            <button type="submit">Registrar</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Buscar por ISBN</h2>
+        <form action="/buscar-isbn" method="get">
+            <label>
+                ISBN
+                <input type="text" name="isbn">
+            </label>
+            <button type="submit">Buscar</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Buscar por titulo</h2>
+        <form action="/buscar-titulo" method="get">
+            <label>
+                Titulo
+                <input type="text" name="titulo">
+            </label>
+            <button type="submit">Buscar</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Prestamos y devoluciones</h2>
+        <form action="/prestar" method="post">
+            <label>
+                ISBN
+                <input type="text" name="isbn">
+            </label>
+            <button type="submit">Prestar</button>
+        </form>
+        <form action="/devolver" method="post">
+            <label>
+                ISBN
+                <input type="text" name="isbn">
+            </label>
+            <button type="submit">Devolver</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Libros disponibles</h2>
+        <form action="/disponibles" method="get">
+            <button type="submit">Listar disponibles</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Resultado</h2>
+        <p>(LOS RESULTADOS DEBERIAN APARECER AQUI CUANDO SE CONECRTEN LAS RUTAS JAVAA)</p>
+    </section>
+</body>
+</html>

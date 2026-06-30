@@ -26,6 +26,17 @@ public class LibroTest {
 
     @Test
     void testCrearLibroInvalido(){
+        IllegalArgumentException ex_isbn_empty = assertThrows(
+            IllegalArgumentException.class,
+            () -> new Libro( 
+                "", 
+                "hola", 
+                "leonardo", 
+                2096
+            )
+        );
+        assertEquals("'isbn' argument cannot be empty", ex_isbn_empty.getMessage());
+
         NullPointerException ex_isbn_null = assertThrows(
             NullPointerException.class,
             () -> new Libro( 
@@ -36,6 +47,16 @@ public class LibroTest {
             )
         );
         assertEquals("'isbn' argument cannot be null", ex_isbn_null.getMessage());
+
+        IllegalArgumentException ex_titulo_empty = assertThrows(
+            IllegalArgumentException.class,
+            () -> new Libro(
+                "123123-123-123-12-3",
+                "",
+                "leo",
+                6969)
+        );
+        assertEquals("'titulo' argument cannot be empty", ex_titulo_empty.getMessage());
 
         NullPointerException ex_titulo_null = assertThrows(
             NullPointerException.class,
