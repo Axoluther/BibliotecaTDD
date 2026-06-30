@@ -47,4 +47,4 @@ jobs:
         body: |
           ### 🎉 ¡Nueva versión estable entregada mediante CD!
           Este artefacto fue compilado y empaquetado automáticamente tras cerrar el ciclo en la rama principal (`main`) con Git Flow.
-        files: target/*.jar
+        files: target/*.jar iniciarWeb.bat iniciarWeb.sh
