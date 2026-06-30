@@ -12,8 +12,38 @@ En este Readme encontrará:
 # Instrucciones de ejecución
 
 ## Requisitos mínimos
-- Tener Java JDK 21
-- Maven
+- Tener Java JDK 21 instalado.
+- Tener Maven instalado.
+- Si se usa VS Code, instalar la extensión `Extension Pack for Java`.
+
+### Verificar requisitos previos
+Antes de compilar o ejecutar el proyecto, revisar en una terminal:
+
+```shell
+java -version
+javac -version
+mvn -version
+```
+
+El proyecto está configurado para Java 21, por lo que `java` y `javac` deberían mostrar una versión 21 o compatible.
+
+Si `java` funciona pero `javac` no, falta instalar el JDK completo. No basta con tener solo el runtime de Java.
+
+En Windows se puede instalar JDK 21 con:
+
+```powershell
+winget install EclipseAdoptium.Temurin.21.JDK
+```
+
+En VS Code se recomienda instalar:
+
+- `Extension Pack for Java`
+- `Maven for Java` (viene incluido en el pack)
+- `Debugger for Java` (viene incluido en el pack)
+- `Test Runner for Java` (viene incluido en el pack)
+
+Después de instalar Java o extensiones, cerrar y volver a abrir VS Code desde la carpeta raíz del proyecto.
+
 ## Ejecución
 No hay un script principal que reciba de entrada que reciba un input
 Para ejecutar las pruebas, que equivale a ver si funciona el proyecto, se usa maven de la siguiente manera:
@@ -25,6 +55,84 @@ o
 maven clean test
 ```
 Esto debería mostrar la ejecución de las pruebas y que funciona todo el CRUD.
+
+## Ejecución de la web mínima
+
+La web mínima se ejecuta levantando un servidor Java local. No se debe abrir el archivo `index.html` directamente desde el navegador.
+
+Primero, ubicarse en la rama que contiene la web:
+
+```shell
+git fetch origin
+git switch feature/web
+git pull origin feature/web
+```
+
+Luego ejecutar la clase principal:
+
+```text
+src/main/java/com/biblioteca/web/BibliotecaWeb.java
+```
+
+Desde VS Code:
+
+1. Abrir `src/main/java/com/biblioteca/web/BibliotecaWeb.java`.
+2. Buscar el método `main`.
+3. Presionar `Run` sobre el método `main`.
+4. Esperar que en consola aparezca:
+
+```text
+Biblioteca web disponible en http://localhost:8080
+```
+
+Luego abrir en el navegador:
+
+```text
+http://localhost:8080
+```
+
+La web permite:
+
+- Registrar libros.
+- Buscar por ISBN.
+- Buscar por título.
+- Listar libros disponibles.
+- Prestar libros.
+- Devolver libros.
+
+### Error común: File Not Found
+
+Si aparece `File Not Found` al presionar un botón de la web, normalmente significa que se abrió el archivo HTML directamente, por ejemplo:
+
+```text
+src/main/resources/web/index.html
+```
+
+Eso no sirve para usar la aplicación completa, porque los formularios envían datos a rutas como:
+
+```text
+/registrar
+/buscar-isbn
+/buscar-titulo
+/prestar
+/devolver
+/disponibles
+```
+
+Esas rutas solo existen cuando está corriendo el servidor Java de `BibliotecaWeb`.
+
+La forma correcta es:
+
+1. Ejecutar `BibliotecaWeb.java`.
+2. Abrir `http://localhost:8080`.
+3. Usar los formularios desde esa URL.
+
+Si `localhost:8080` no carga, revisar:
+
+- Que `BibliotecaWeb.java` esté ejecutándose.
+- Que la consola muestre `Biblioteca web disponible en http://localhost:8080`.
+- Que el puerto `8080` no esté ocupado por otro programa.
+
 ## Evidencia
 En log es mas grande pero se alcanza a ver que se pasaron 10 sets de pruebas (funciones), que cada uno tiene varias pruebas unitaraias o casos de pruebas
 
