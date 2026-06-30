@@ -1,4 +1,4 @@
-# Blibioteca USM TDD | Testing
+# Biblioteca USM TDD | Testing
 
 Este trabajo trata de probar TDD para desarrollar un software de una biblioteca
 
@@ -91,6 +91,12 @@ mvn clean package
 java -jar ".\target\sistema-biblioteca-1.0.0-SNAPSHOT.jar"
 ```
 
+En Linux, el `.jar` local compilado se puede ejecutar con:
+
+```shell
+java -jar ./target/sistema-biblioteca-1.0.0-SNAPSHOT.jar
+```
+
 Debería mostrar:
 
 ```text
@@ -123,14 +129,14 @@ mvn test
 o
 
 ```shell
-maven clean test
+mvn clean test
 ```
 
 Esto debería mostrar la ejecución de las pruebas y que funciona todo el CRUD.
 
 ## Evidencia
 
-En log es más grande, pero se alcanza a ver que 10 sets de pruebas (funciones) han pasado correctamente, y que cada uno tiene varias pruebas unitarias o casos de pruebas.
+En log es más grande, pero se alcanza a ver que las pruebas han pasado correctamente. Actualmente se ejecutan 13 tests entre `BibliotecaTest` y `LibroTest`.
 
 <img width="687" height="674" alt="image" src="https://github.com/user-attachments/assets/df9dc6af-d68c-4e40-aaaa-524139f082cb" />
 
@@ -140,13 +146,13 @@ También, dentro de `\target\surefire-reports`, se encuentran los resultados de 
 
 <img width="691" height="362" alt="image" src="https://github.com/user-attachments/assets/aa0e5261-77a6-4ab1-ab5a-770db6a322a6" />
 
-Igualmente, la pipeline de CI ejecuta las pruebas cada vez que se sube algún cambio a las ramas. Todo lo que entra a producción `main` ya esstá testeado y se vuelve a testear para que se integre bien.
+Igualmente, la pipeline de CI ejecuta las pruebas cada vez que se sube algún cambio a las ramas. Todo lo que entra a producción `main` ya está testeado y se vuelve a testear para que se integre bien.
 
 # Casos de pruebas implementados
 
 ## LibroTest.java
 
-Aquí se realizaron 3 sets de pruebas que se componene de varias pruebas unitarias o casos de pruebas
+Aquí se realizaron 3 sets de pruebas que se componen de varias pruebas unitarias o casos de pruebas
 
 - `testCrearLibroValido`
 
