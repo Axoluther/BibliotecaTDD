@@ -28,6 +28,7 @@
     </dependencies>
 
     <build>
+        <finalName>sistema-biblioteca</finalName>
         <plugins>
             <!-- Apache Maven Surefire Plugin -->
             <!-- ejecuta las pruebas unitarias -->
