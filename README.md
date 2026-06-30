@@ -45,47 +45,49 @@ En VS Code se recomienda instalar:
 Después de instalar Java o extensiones, cerrar y volver a abrir VS Code desde la carpeta raíz del proyecto.
 
 ## Ejecución
-No hay un script principal que reciba de entrada que reciba un input
-Para ejecutar las pruebas, que equivale a ver si funciona el proyecto, se usa maven de la siguiente manera:
-```shell
-mvn test
-```
-o 
-```shell
-maven clean test
-```
-Esto debería mostrar la ejecución de las pruebas y que funciona todo el CRUD.
 
 ## Ejecución de la web mínima
 
-La web mínima se ejecuta levantando un servidor Java local. No se debe abrir el archivo `index.html` directamente desde el navegador.
+La web mínima levanta un servidor Java local.
 
-Primero, ubicarse en la rama que contiene la web:
+Se dispone de los scripts de ejecución `iniciarWeb.sh`(Linux) y `iniciarWeb.bat`(Windows) para ejecutar el `.jar`. Deben de estar en la misma carpeta.
+Estos archivos se consiguen en las realise oficiales publicadas donde puede el `.jar` y los scripts
+
+Para Windows:
+```shell
+.\iniciarWeb.bat
+```
+Para Linux:
+```shell
+./iniciarWeb.sh
+```
+
+También puede ejecutar el `.jar` directamente con el siguiente comando:
 
 ```shell
-git fetch origin
-git switch feature/web
-git pull origin feature/web
+java -jar archivo.jar
 ```
 
-Luego ejecutar la clase principal:
-
-```text
-src/main/java/com/biblioteca/web/BibliotecaWeb.java
+Por ejemplo
+```shell
+java -jar "sistema-biblioteca-1.0.0-SNAPSHOT.jar"
 ```
 
-Desde VS Code:
+Si no puede hallar el `.jar`, puede construirlo:
+```shell
+git clone git@github.com:Axoluther/BibliotecaTDD.git
+cd BibliotecaTDD
+mvn clean package
+jar -jar ".\target\sistema-biblioteca-1.0.0-SNAPSHOT.jar"
+```
 
-1. Abrir `src/main/java/com/biblioteca/web/BibliotecaWeb.java`.
-2. Buscar el método `main`.
-3. Presionar `Run` sobre el método `main`.
-4. Esperar que en consola aparezca:
+Debería mostrar:
 
 ```text
 Biblioteca web disponible en http://localhost:8080
 ```
 
-Luego abrir en el navegador:
+Luego de haber logrado ejecutarlo, debe abrir en el navegador el enlace:
 
 ```text
 http://localhost:8080
@@ -100,38 +102,16 @@ La web permite:
 - Prestar libros.
 - Devolver libros.
 
-### Error común: File Not Found
-
-Si aparece `File Not Found` al presionar un botón de la web, normalmente significa que se abrió el archivo HTML directamente, por ejemplo:
-
-```text
-src/main/resources/web/index.html
+### Ejecución de pruebas
+Para ejecutar las pruebas, que equivale a ver si funciona el proyecto, se usa maven de la siguiente manera:
+```shell
+mvn test
 ```
-
-Eso no sirve para usar la aplicación completa, porque los formularios envían datos a rutas como:
-
-```text
-/registrar
-/buscar-isbn
-/buscar-titulo
-/prestar
-/devolver
-/disponibles
+o 
+```shell
+maven clean test
 ```
-
-Esas rutas solo existen cuando está corriendo el servidor Java de `BibliotecaWeb`.
-
-La forma correcta es:
-
-1. Ejecutar `BibliotecaWeb.java`.
-2. Abrir `http://localhost:8080`.
-3. Usar los formularios desde esa URL.
-
-Si `localhost:8080` no carga, revisar:
-
-- Que `BibliotecaWeb.java` esté ejecutándose.
-- Que la consola muestre `Biblioteca web disponible en http://localhost:8080`.
-- Que el puerto `8080` no esté ocupado por otro programa.
+Esto debería mostrar la ejecución de las pruebas y que funciona todo el CRUD.
 
 ## Evidencia
 En log es mas grande pero se alcanza a ver que se pasaron 10 sets de pruebas (funciones), que cada uno tiene varias pruebas unitaraias o casos de pruebas
@@ -206,7 +186,11 @@ Se iban agregando las funciones on las pruebas unitarias:
 - Luego de programar se documentaba el código co javadoc
 
 ## Documentación
-La documentación del código se puede encontrar en este [enlace]([axoluther.github.io/BibliotecaTDD/](https://axoluther.github.io/BibliotecaTDD/com/biblioteca/package-summary.html)) generado con una pipeline para esto luego del CD
+La documentación del código se puede encontrar en el siguiente enlace:
+
+```shell
+https://axoluther.github.io/BibliotecaTDD/
+```
 
 ## Repsuestas a preguntas
 ### Pregunta 1
