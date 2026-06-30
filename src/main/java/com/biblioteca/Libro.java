@@ -32,7 +32,13 @@ public class Libro {
      */
     public Libro(String isbn, String titulo, String autor, int anioPublicacion){
         this.isbn = Objects.requireNonNull(isbn,"'isbn' argument cannot be null");
+        if (this.isbn.isEmpty()) {
+            throw new IllegalArgumentException("'isbn' argument cannot be empty");
+        }
         this.titulo = Objects.requireNonNull(titulo, "'titulo' argument cannot be null");
+        if (this.titulo.isEmpty()) {
+            throw new IllegalArgumentException("'titulo' argument cannot be empty");
+        }
         this.autor = autor;
         this.anioPublicacion = anioPublicacion;
     };

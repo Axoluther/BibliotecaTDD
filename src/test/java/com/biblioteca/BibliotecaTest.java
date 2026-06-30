@@ -2,11 +2,13 @@ package com.biblioteca;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -84,6 +86,13 @@ public class BibliotecaTest {
     }
 
     @Test
+    void buscarPorIsbnInexistenteRetornaVacio() {
+        biblio.registrarLibro(libro1);
+        Optional<Libro> resultado = biblio.buscarPorIsbn("9999");
+        assertTrue(resultado.isEmpty());
+    }
+
+    @Test
     void prestarLibros(){
         biblio.registrarLibro(libro1);
         biblio.registrarLibro(libro3);
@@ -104,6 +113,20 @@ public class BibliotecaTest {
         assertThrows(LibroNoEncontradoException.class, ()-> biblio.devolverLibro("kkkasda") );
 
     };
+
+    @Test 
+    void prestarLibroLoMarcaComoNoDisponible(){
+        biblio.registrarLibro(libro3);
+        biblio.prestarLibro(libro3.getIsbn());
+        Libro libroPrestado = biblio.buscarPorIsbn(libro3.getIsbn()).orElseThrow(() -> new LibroNoEncontradoException(libro3.getIsbn()));
+        assertFalse(libroPrestado.getDisponible());
+    }
+
+    @Test
+    void devolverLibroDisponibleLanzaExcepcion() {
+        biblio.registrarLibro(libro1);
+        assertThrows(LibroYaDisponible.class, () -> biblio.devolverLibro(libro1.getIsbn()));
+    }
 
     @Test
     void listarLibros(){
