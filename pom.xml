@@ -86,6 +86,21 @@
                     <doclint>none</doclint> 
                 </configuration>
             </plugin>
+
+            <!-- JAR Plugin -->
+            <!-- para la configuración de cuando se compila el jar -->
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.4.2</version> <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>com.biblioteca.web.BibliotecaWeb</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
         </plugins>
     </build>
 </project>
